@@ -1,10 +1,17 @@
-Setup font awesome
-correct index page footer.
-Change text in header top
-Change header links - About, Contact, Website
 Make new post route
-Make current post route
-Make all posts route
 Make login route
 Make singup route
-Add contact form
+Make header links redirrect cirrectkt
+Style contact forms correctly
+Add social icons to bottom. 
+Add dropdown to auth user header for different hidden route
+Make user login and singup (OAuth google and facebook strategy.)
+Redirect to right page after login and signup. 
+Connect with mongodb
+Setup user, post models
+Add post functionality 
+Posts should reflect on post pages. 
+Tags should filter posts and display on posts page
+Search field should find post with specific title and display on posts page. 
+Post detail page 
+Logout functionality

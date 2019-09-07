@@ -3,20 +3,23 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="A simple blog made using node.js, express, mongodb">
+    <meta name="author" content="vignesh ramesh">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/stylesheets/default.css">
-    <link rel='stylesheet' href='/stylesheets/header.css' />
-    <link rel='stylesheet' href='/stylesheets/footer.css' />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/stylesheets/default.css" rel="stylesheet"/>
+    <link rel='stylesheet' href='/stylesheets/header.css' rel="stylesheet"/>
+    <link rel='stylesheet' href='/stylesheets/footer.css' rel="stylesheet"/>
     {{#if style}}
-    <link rel='stylesheet' href='/stylesheets/{{style}}' />
+    <link rel='stylesheet' href='/stylesheets/{{style}}' rel="stylesheet"/>
     {{/if}}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
   </head>
   <body>
     {{>header}}
-    {{{body}}}
+    <div class="main-content">
+      {{{body}}}
+    </div>
     {{>footer}}
     <script src="/js/jquery.min.js"></script>
     <script src="/js/popper.min.js"></script>

@@ -3,17 +3,38 @@ html{
 }
 
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  /* height: 100vh;
-  display: flex;
-  flex-direction: column; */
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
 }
 
-/* .main-content {
-  flex: 1 1 auto;
+.main-content{
+  padding: 90px 20px;
 }
 
 a {
   color: #00B7FF;
-} */
+}
+
+.error-template {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.error-details pre{
+  text-align: left;
+  margin: auto;
+  padding: 50px 30px;
+  width: 70%;
+}
+
+.error-actions {
+  margin-top:15px;
+  margin-bottom:15px;
+}
+
+.error-actions .btn {
+  margin-right:10px; 
+}

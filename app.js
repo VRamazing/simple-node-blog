@@ -7,6 +7,8 @@ var exhbs = require('express-handlebars');
 
 var indexRouter = require('./routes/index.route');
 var usersRouter = require('./routes/users.route');
+var blogRouter = require('./routes/blog.route');
+
 
 var app = express();
 
@@ -27,6 +29,8 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/blog', blogRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
