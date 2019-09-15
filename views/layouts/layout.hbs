@@ -13,7 +13,8 @@
     {{#if style}}
     <link rel='stylesheet' href='/stylesheets/{{style}}' rel="stylesheet"/>
     {{/if}}
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    {{!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/> --}}
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
   </head>
   <body>
     {{>header}}
@@ -24,5 +25,7 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/javascripts/{{script}}"></script>
+
   </body>
 </html>

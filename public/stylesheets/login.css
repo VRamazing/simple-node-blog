@@ -1,0 +1,9 @@
+
+.passwd-eye{  
+    position: relative;
+    float: right;
+    margin-left: -30px;
+    margin-top: -25px;
+    margin-right: 20px;
+    cursor: pointer;
+}
