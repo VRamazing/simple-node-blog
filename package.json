@@ -9,9 +9,12 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "cookie-parser": "~1.4.4",
+    "csurf": "^1.10.0",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-handlebars": "^3.1.0",
+    "express-session": "^1.16.2",
+    "express-sessions": "^1.0.6",
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
     "jquery": "^3.4.1",
