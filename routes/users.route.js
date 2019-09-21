@@ -1,5 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var csurf = require('csurf');
+
+var csrfProtection = csurf();
+
+router.use(csrfProtection);
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -11,7 +16,11 @@ router.get('/login', function(req, res, next) {
 });
 
 router.get('/signup', function(req, res, next) {
-  res.render('signup', { title: 'signup', style: 'login.css', script: 'login.js' });
+  res.render('signup', { title: 'signup', style: 'login.css', script: 'login.js', csrfToken: req.csrfToken() });
+});
+
+router.post('/signup', function(req, res, next) {
+  res.redirect('/')
 });
 
 module.exports = router;

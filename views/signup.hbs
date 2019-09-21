@@ -1,5 +1,5 @@
 <div class="container">
-  <form name="post-form" action="post">
+  <form name="post-form" method="post" action="/users/signup">
     <div class="form-group">
       <label for="contact-email">Email*</label>
       <input type="text" class="form-control" id="login-email" placeholder="Enter your email">
@@ -18,19 +18,8 @@
       <i class="fa fa-eye passwd-eye" toggle="#login-confirm-password" aria-hidden="true"  style="display: none"></i>
       <i class="fa fa-eye-slash passwd-eye" toggle="#login-confirm-password" aria-hidden="true" ></i>
     </div>
-
-    {{!-- <div class="form-group">
-      <label for="login-password">Enter password*</label>
-      <input type="password" class="form-control" id="login-confirm-password" placeholder="Enter your password" />
-      <i class="fa fa-eye passwd-eye" toggle="#login-confirm-password" aria-hidden="true"  style="display: none"></i>
-      <i class="fa fa-eye-slash passwd-eye" toggle="#login-confirm-password" aria-hidden="true" ></i>
-    </div> --}}
-
-    <div class="form-group form-check">
-      <input type="checkbox" class="form-check-input" id="login-remember">
-      <label class="form-check-label" for="login-remember">Remember me</label>
-    </div>
-
-    <button type="button" class="btn btn-primary">Login</button>
+    
+    <input type="hidden" value="{{csrfToken}}" name="_csrf">
+    <button type="button" class="btn btn-primary">Signup</button>
   </form>
 </div>

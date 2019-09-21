@@ -4,13 +4,29 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var exhbs = require('express-handlebars');
+const mongoose = require('mongoose');
+var session = require('express-session');
 
 var indexRouter = require('./routes/index.route');
 var usersRouter = require('./routes/users.route');
 var blogRouter = require('./routes/blog.route');
 
-
 var app = express();
+
+mongoose.Promise = global.Promise;
+
+mongoose.connect(
+    "mongodb+srv://vramazing:"
+    + process.env.MONGO_ATLAS_PW
+    + "@blog-y7003.mongodb.net/test?retryWrites=true&w=majority",
+    {
+        useNewUrlParser: true 
+    }
+)
+.then(res => {
+    console.log("Connected to DB");
+})
+.catch(err => console.log(err));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +37,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({ secret: 'secret',
+                  resave: false,
+                  saveUninitialized: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery

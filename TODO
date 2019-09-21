@@ -4,6 +4,7 @@ Setup user, post models
 Make user login and singup (OAuth google and facebook strategy.)
 Redirect to right page after login and signup. 
 Logout functionality
+Complete contact form with nodemailer
 
 Add post functionality 
 Implement remember me. 
@@ -12,7 +13,6 @@ Posts should reflect on post pages.
 Tags should filter posts and display on posts page
 Search field should find post with specific title and display on posts page. 
 Post detail page 
-Complete contact form with nodemailer
 Impement breadcrumbs
 Set which link is active right now
 FInd a way to serve a seperate web page in a route. -> This would be my resume. I can leverage a lot of things in this case. 
