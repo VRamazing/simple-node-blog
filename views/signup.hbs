@@ -1,13 +1,21 @@
 <div class="container">
+  <h1>Signup</h1>
+  {{#if hasErrors }}
+    <div class="alert alert-danger">
+      {{#each messages}}
+        <p>{{this}}</p>
+      {{/each}}
+    </div>
+  {{/if }}
   <form name="post-form" method="post" action="/users/signup">
     <div class="form-group">
       <label for="contact-email">Email*</label>
-      <input type="text" class="form-control" id="login-email" placeholder="Enter your email">
+      <input type="text" class="form-control" id="login-email" placeholder="Enter your email" name="email">
     </div>
 
     <div class="form-group">
       <label for="contact-password">Enter password*</label>
-      <input type="password" class="form-control" id="login-password" placeholder="Enter your password" />
+      <input type="password" class="form-control" id="login-password" placeholder="Enter your password" name="password"/>
       <i class="fa fa-eye passwd-eye" toggle="#login-password" aria-hidden="true"  style="display: none"></i>
       <i class="fa fa-eye-slash passwd-eye" toggle="#login-password" aria-hidden="true" ></i>
     </div>
@@ -18,8 +26,9 @@
       <i class="fa fa-eye passwd-eye" toggle="#login-confirm-password" aria-hidden="true"  style="display: none"></i>
       <i class="fa fa-eye-slash passwd-eye" toggle="#login-confirm-password" aria-hidden="true" ></i>
     </div>
-    
-    <input type="hidden" value="{{csrfToken}}" name="_csrf">
-    <button type="button" class="btn btn-primary">Signup</button>
+
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+    <button type="submit" class="btn btn-primary">Signup</button>
   </form>
 </div>

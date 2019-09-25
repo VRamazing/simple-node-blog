@@ -6,6 +6,10 @@ var logger = require('morgan');
 var exhbs = require('express-handlebars');
 const mongoose = require('mongoose');
 var session = require('express-session');
+var passport = require('passport');
+var flash = require('connect-flash');
+
+require('./config/passport');
 
 var indexRouter = require('./routes/index.route');
 var usersRouter = require('./routes/users.route');
@@ -37,9 +41,16 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: 'secret',
-                  resave: false,
-                  saveUninitialized: false }));
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false,
+}))
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
