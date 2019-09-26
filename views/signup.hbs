@@ -1,5 +1,6 @@
 <div class="container">
   <h1>Signup</h1>
+  
   {{#if hasErrors }}
     <div class="alert alert-danger">
       {{#each messages}}
@@ -7,6 +8,7 @@
       {{/each}}
     </div>
   {{/if }}
+
   <form name="post-form" method="post" action="/users/signup">
     <div class="form-group">
       <label for="contact-email">Email*</label>

@@ -3,6 +3,7 @@ var csurf = require('csurf');
 var router = express.Router();
 var csurf = require('csurf');
 var passport = require('passport');
+const { check } = require('express-validator');
 
 var csrfProtection = csurf();
 
@@ -22,14 +23,17 @@ router.get('/signup', function(req, res, next) {
   res.render('signup', { title: 'signup', style: 'login.css', script: 'login.js' , csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
 });
 
-router.post('/signup', passport.authenticate('local.signup', {
+router.post('/signup', [
+  check('email', 'Invalid email').isEmail(),
+  check('password', 'Invalid password').isLength({min: 4})
+], passport.authenticate('local.signup', {
   successRedirect: '/users/profile',
   failureRedirect: '/users/signup',
   failureFlash: true
 }));
 
 router.get('/profile', function(req, res, next){
-  res.render('user/profile');
+  res.render('profile');
 })
 
 
