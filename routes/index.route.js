@@ -4,7 +4,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.redirect('/blog/posts/')
+  res.redirect('/blog/posts/');
 });
 
 router.get('/about', function(req, res, next) {
@@ -14,7 +14,5 @@ router.get('/about', function(req, res, next) {
 router.get('/contact', function(req, res, next) {
   res.render('contact', { title: 'Express' , style: 'blog-home.css'});
 });
-
-
 
 module.exports = router;

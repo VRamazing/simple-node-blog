@@ -21,14 +21,6 @@ passport.use('local.signup', new LocalStrategy({
     passReqToCallback: true
 }, function(req, email, password, done){
     var errors = validationResult(req);
-    if(errors){
-        var messages = [];
-        console.log(errors);
-        // errors.forEach(function(error){
-        //     messages.push(error.msg);
-        // });
-        // return done(null, false, req.flash('error', messages));
-    }
 
     User.findOne({'email': email}, function(err, user){
         if(err){
@@ -46,5 +38,26 @@ passport.use('local.signup', new LocalStrategy({
             }
             return done(null, newUser);
         })
+    });
+}));
+
+passport.use('local.signin', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+}, function(req, email, password, done){
+    var errors = validationResult(req);
+    console.log('errors')
+    User.findOne({'email': email}, function(err, user){
+        if(err){
+            return done(err);
+        }
+        if(!user){
+            return done(null, false, {message: 'Email does not exist.'})
+        }
+        if(!user.validPassword(password)){
+            return done(null, false, {message: 'Wrong password.'})
+        }
+        return done(null, user);
     });
 }));
