@@ -16,6 +16,13 @@ function isLoggedIn(req, res, next){
   res.redirect('/users/signup');
 }
 
+// function isNotLoggedIn(req, res, next){
+//   if(!req.isAuthenticated()){
+//     return next();
+//   }
+//   res.redirect('/users/');
+// }
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');

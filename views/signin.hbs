@@ -1,5 +1,15 @@
 <div class="container">
-  <h1>Signin</h1>
+  <h4>Signin to your personal account</h4>
+  
+  <br>
+
+  <div class="social-sigin">
+    <a href="" class="btn btn-block btn-twitter"> <i class="fa fa-twitter"></i>   sigin via twitter</a>
+    <a href="" class="btn btn-block btn-facebook"> <i class="fa fa-facebook-f"></i>   sigin via facebook</a>
+    <a href="" class="btn btn-block btn-google"> <i class="fa fa-google-plus" aria-hidden="true"></i>   sigin via google</a>
+  </div> 
+
+  <p class="text-center mb-4 mt-4"><strong>OR</strong></p>
   
   {{#if hasErrors }}
     <div class="alert alert-danger">
@@ -13,25 +23,32 @@
   {{/if }}
 
   <form name="post-form" method="post" action="/users/signin">
-    <div class="form-group">
-      <label for="contact-email">Email*</label>
-      <input type="text" class="form-control" id="login-email" placeholder="Enter your email" name="email">
-    </div>
+    
+    <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text icon-label-group"><i class="fa fa-envelope"></i><span class="label-input">Email</span></span>
+		  </div>
+      <input name="email" class="form-control" placeholder="Email address" type="email" required /> 
+    </div> <!-- form-group// -->
 
-    <div class="form-group">
-      <label for="contact-password">Enter password*</label>
-      <input type="password" class="form-control" id="login-password" placeholder="Enter your password" name="password"/>
-      <i class="fa fa-eye passwd-eye" toggle="#login-password" aria-hidden="true"  style="display: none"></i>
-      <i class="fa fa-eye-slash passwd-eye" toggle="#login-password" aria-hidden="true" ></i>
-    </div>
+    <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text icon-label-group"><i class="fa fa-lock"></i><span class="label-input">Password</span></span>
+		  </div>
+      <input class="form-control" placeholder="Enter password" type="password" id="sigin-confirm-password" name="password">
+      <i class="fa fa-eye passwd-eye" toggle="#sigin-confirm-password" aria-hidden="true"  style="display: none"></i>
+      <i class="fa fa-eye-slash passwd-eye" toggle="#sigin-confirm-password" aria-hidden="true" ></i>
+    </div> <!-- form-group// -->
 
     <div class="form-group form-check">
-      <input type="checkbox" class="form-check-input" id="login-remember">
-      <label class="form-check-label" for="login-remember">Remember me</label>
+      <input type="checkbox" class="form-check-input" id="sigin-remember">
+      <label class="form-check-label" for="sigin-remember">Remember me</label>
     </div>
+
+    <p>Dont't have an account. <a href="/users/signup">Sign up</a></p>
 
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
-    <button type="submit" class="btn btn-primary">Signin</button>
+    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
   </form>
 </div>

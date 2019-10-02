@@ -20,7 +20,6 @@ passport.use('local.signup', new LocalStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, function(req, email, password, done){
-    var errors = validationResult(req);
 
     User.findOne({'email': email}, function(err, user){
         if(err){
@@ -32,6 +31,10 @@ passport.use('local.signup', new LocalStrategy({
         var newUser = new User();
         newUser.email = email;
         newUser.password = newUser.encryptPassword(password);
+        newUser.name = req.body.name;
+        newUser.profession = req.body.profession;
+        newUser.avatar = req.body.avatar;
+        console.log("Name is ", req.name)
         newUser.save(function(err, result){
             if(err){
                 return done(err);

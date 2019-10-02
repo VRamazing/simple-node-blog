@@ -3,7 +3,34 @@
     position: relative;
     float: right;
     margin-left: -30px;
-    margin-top: -25px;
+    margin-top: 14px;
     margin-right: 20px;
     cursor: pointer;
+}
+
+.btn-facebook {
+    background-color: #405D9D;
+    color: #fff;
+}
+.btn-twitter {
+    background-color: #42AEEC;
+    color: #fff;
+}
+
+.btn-google {
+    background-color: #dd4b39;
+    color: #fff;
+}
+
+.social-login{
+    margin-bottom: 20px;
+}
+
+.label-input{
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+.icon-label-group{
+    width: 110px;
 }
