@@ -21,6 +21,10 @@ passport.use('local.signup', new LocalStrategy({
     passReqToCallback: true
 }, function(req, email, password, done){
 
+    if(req.body.password !== req.body.confirmpassword){
+        return done(null, false, {message: 'Passwords do not match.'})
+    }
+
     User.findOne({'email': email}, function(err, user){
         if(err){
             return done(err);

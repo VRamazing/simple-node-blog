@@ -3,7 +3,32 @@ var csurf = require('csurf');
 var router = express.Router();
 var csurf = require('csurf');
 var passport = require('passport');
+const multer = require("multer");
+
 const { check } = require('express-validator');
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, './uploads/users');
+    },
+    filename: function(req, file, cb){
+        cb(null, new Date().toISOString().replace(/:|\./g,'')  + '__' + file.originalname)
+    }
+})
+
+const fileFilter = (req, file, cb) =>{
+    if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+        cb(null, true);
+    }
+    else{
+        cb(req.flash("error", "File type not accepted. Please upload png/jpeg"), false);
+    }
+}
+
+//supports a file of 2MB for thumbnail avatar image
+const upload = multer({storage: storage, limits: {
+  fileSize: 1024 * 1024 * 2
+}, fileFilter: fileFilter})
 
 var csrfProtection = csurf();
 
