@@ -12,7 +12,8 @@
     </div>
   {{/if }}
 
-  <form name="post-form" method="post" action="/users/signup" class="signup-post-form">
+  {{!-- Need to add csrf token to action url due to issue of multer not working with csurf --}}
+  <form name="post-form" method="post" action="/users/signup?_csrf={{csrfToken}}" class="signup-post-form"  enctype="multipart/form-data">
     <div class="form-group input-group">
       <div class="input-group-prepend">
           <span class="input-group-text icon-label-group"><i class="fa fa-user"></i><span class="label-input">Name</span></span>
@@ -45,7 +46,6 @@
         <i class="fa fa-eye-slash passwd-eye" toggle="#login-confirm-password" aria-hidden="true" ></i>
     </div> <!-- form-group// -->
     
-
     <div class="form-group input-group">
     	<div class="input-group-prepend ">
 		    <span class="input-group-text icon-label-group"> <i class="fa fa-building"></i><span class="label-input">Profession</span></span>
@@ -60,7 +60,6 @@
       </select>
     </div> <!-- form-group end.// -->
 
-    
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text icon-label-group"> <i class="fa fa-picture-o" aria-hidden="true"></i><span class="label-input">Avatar</span></span>

@@ -61,7 +61,7 @@ router.get('/signup', function(req, res, next) {
 router.post('/signup', [
   check('email', 'Invalid email').isEmail(),
   check('password', 'Invalid password').isLength({min: 4})
-], passport.authenticate('local.signup', {
+], upload.single('avatar'), passport.authenticate('local.signup', {
   successRedirect: '/users/profile',
   failureRedirect: '/users/signup',
   failureFlash: true
