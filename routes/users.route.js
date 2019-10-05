@@ -1,11 +1,10 @@
 var express = require('express');
 var csurf = require('csurf');
 var router = express.Router();
-var csurf = require('csurf');
 var passport = require('passport');
 const multer = require("multer");
-
 const { check } = require('express-validator');
+const csrfProtection = csurf();
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
@@ -30,7 +29,6 @@ const upload = multer({storage: storage, limits: {
   fileSize: 1024 * 1024 * 2
 }, fileFilter: fileFilter})
 
-var csrfProtection = csurf();
 
 router.use(csrfProtection);
 
@@ -58,14 +56,18 @@ router.get('/signup', function(req, res, next) {
   res.render('signup', { title: 'signup', style: 'login.css', script: 'login.js' , csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
 });
 
-router.post('/signup', [
-  check('email', 'Invalid email').isEmail(),
-  check('password', 'Invalid password').isLength({min: 4})
-], upload.single('avatar'), passport.authenticate('local.signup', {
-  successRedirect: '/users/profile',
-  failureRedirect: '/users/signup',
-  failureFlash: true
-}));
+router.post('/signup', 
+  [
+    check('email', 'Invalid email').isEmail(),
+    check('password', 'Invalid password').isLength({min: 4})
+  ], 
+  upload.single('avatar'), passport.authenticate('local.signup', 
+  {
+    successRedirect: '/users/profile',
+    failureRedirect: '/users/signup',
+    failureFlash: true
+  }
+));
 
 router.get('/signin', function(req, res, next) {
   var messages = req.flash('error');
@@ -88,7 +90,8 @@ router.get('/signout', function(req, res, next){
 })
 
 router.get('/profile', isLoggedIn, function(req, res, next){
-  res.render('profile');
+  var user = req.session.user;
+  res.render('profile', {user: user});
 })
 
 module.exports = router;
