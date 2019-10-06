@@ -25,9 +25,6 @@ passport.use('local.signup', new LocalStrategy({
         return done(null, false, {message: 'Passwords do not match.'})
     }
 
-    if(req.files.length >= 0)
-        console.log(req.files[0].fileName);
-
     User.findOne({'email': email}, function(err, user){
         if(err){
             return done(err);
@@ -40,12 +37,17 @@ passport.use('local.signup', new LocalStrategy({
         newUser.password = newUser.encryptPassword(password);
         newUser.name = req.body.name;
         newUser.profession = req.body.profession;
-        // newUser.avatar = req.files[0].fileName;
-        console.log("Name is ", req.name)
+        if(req.files !== undefined){
+            newUser.avatar = 'default_avatar.png';
+        }
+        else{
+            newUser.avatar = req.file.filename;
+        }
         newUser.save(function(err, result){
             if(err){
                 return done(err);
             }
+            console.log(result);
             return done(null, newUser);
         })
     });
