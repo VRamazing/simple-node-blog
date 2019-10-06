@@ -21,19 +21,21 @@
         <li class="nav-item">
           <a class="nav-link" href="/contact">Contact</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/users/signin">Signin</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/users/signup">Signup</a>
-        </li>        
-        {{!-- <li class="nav-item">
-          <a class="nav-link" href="#">User controls</a>
-            //Dropdown containing
-            //Logout 
-            //User profile option
-            //Create a post link if user is admin.
-        </li> --}}
+        {{#if login}}
+          <li class="nav-item">
+            <a class="nav-link" href="/users/profile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/signout">Signout</a>
+          </li>
+        {{else}}
+          <li class="nav-item">
+            <a class="nav-link" href="/users/signin">Signin</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/users/signup">Signup</a>
+          </li>        
+        {{/ if}}
       </ul>
     </div>
   </div>

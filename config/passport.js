@@ -37,7 +37,7 @@ passport.use('local.signup', new LocalStrategy({
         newUser.password = newUser.encryptPassword(password);
         newUser.name = req.body.name;
         newUser.profession = req.body.profession;
-        if(req.files !== undefined){
+        if(req.file === undefined){
             newUser.avatar = 'default_avatar.png';
         }
         else{
@@ -47,7 +47,7 @@ passport.use('local.signup', new LocalStrategy({
             if(err){
                 return done(err);
             }
-            console.log(result);
+            // console.log(result);
             return done(null, newUser);
         })
     });
