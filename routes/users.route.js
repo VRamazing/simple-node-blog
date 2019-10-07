@@ -87,8 +87,8 @@ router.get('/signin', function(req, res, next) {
 });
 
 router.post('/signin', [
-  check('email', 'Invalid email').isEmail(),
-  check('password', 'Invalid password').isLength({min: 4})
+  check('email', 'Invalid email').exists().isEmail(),
+  check('password', 'Invalid password').exists().isLength({min: 4})
 ], passport.authenticate('local.signin', {
   successRedirect: '/users/profile',
   failureRedirect: '/users/signin',
