@@ -71,8 +71,9 @@ router.post('/signup',
   [
     check('email', 'Invalid email').isEmail(),
     check('password', 'Invalid password').isLength({min: 4})
-  ], 
-  upload.single('avatar'), passport.authenticate('local.signup', 
+  ],
+  upload.single('avatar'),
+  passport.authenticate('local.signup', 
   {
     successRedirect: '/users/profile',
     failureRedirect: '/users/signup',
@@ -93,6 +94,5 @@ router.post('/signin', [
   failureRedirect: '/users/signin',
   failureFlash: true
 }));
-
 
 module.exports = router;

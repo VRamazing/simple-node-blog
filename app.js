@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
 var flash = require('connect-flash');
+var mongoStore = require('connect-mongo')(session);
 
 require('./config/passport');
 
@@ -45,6 +46,8 @@ app.use(session({
   secret: 'secret',
   resave: false,
   saveUninitialized: false,
+  store: new mongoStore({mongooseConnection: mongoose.connection}),
+  cookie: {maxAge: 180*60*1000}
 }))
 app.use(flash());
 app.use(passport.initialize());
@@ -59,6 +62,7 @@ app.use('/uploads/users',express.static(__dirname + '/uploads/users'));
 
 app.use(function(req, res, next){
   res.locals.login = req.isAuthenticated();
+  res.locals.session = req.session;
   next();
 })
 
