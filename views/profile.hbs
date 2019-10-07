@@ -1,9 +1,20 @@
 <h1>User profile</h1>
 
-
-{{user.name}}
-{{user.profession}}
-{{user.email}}
-{{user.email}}
-
-
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Avatar</th>
+      <th scope="col">Name</th>
+      <th scope="col">Profession</th>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="/uploads/users/{{user.avatar}}" alt="avatar image" height="40px" width="40px"></td>
+      <td>{{user.name}}</td>
+      <td>{{user.profession}}</td>
+      <td>{{user.email}}</td>
+    </tr>
+  </tbody>
+</table>

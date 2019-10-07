@@ -49,7 +49,7 @@ function isNotLoggedIn(req, res, next){
 
 router.get('/profile', isLoggedIn, function(req, res, next){
   var user = req.session.user;
-  res.render('profile', {user: req.session.user});
+  res.render('profile', {user: req.user});
 })
 
 router.get('/signout', isLoggedIn, function(req, res, next){
