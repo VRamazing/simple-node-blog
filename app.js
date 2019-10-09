@@ -33,9 +33,22 @@ mongoose.connect(
 })
 .catch(err => console.log(err));
 
+
+var hbs = exhbs.create({
+  // Specify helpers which are only registered on this instance.
+  helpers: {
+      isequal: function (url1, url2, options) { 
+        if(url1 == url2){
+          return options.fn(this);
+        }
+      }
+  },
+  defaultLayout: 'layout', extname: '.hbs'
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.engine('.hbs', exhbs({defaultLayout: 'layout', extname: '.hbs'}))
+app.engine('.hbs', hbs.engine)
 app.set('view engine', '.hbs');
 
 app.use(logger('dev'));

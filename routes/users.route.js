@@ -5,6 +5,7 @@ var passport = require('passport');
 const multer = require("multer");
 const { check } = require('express-validator');
 const csrfProtection = csurf();
+const constants = require('../utils/constants');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
@@ -48,11 +49,13 @@ function isNotLoggedIn(req, res, next){
 }
 
 router.get('/profile', isLoggedIn, function(req, res, next){
+  res.locals.currentUrl = constants.PROFILE;
   var user = req.session.user;
   res.render('profile', {user: req.user});
 })
 
 router.get('/signout', isLoggedIn, function(req, res, next){
+  res.locals.currentUrl = 'SIGNOUT';
   req.logout();
   res.redirect('/');
 })
@@ -63,6 +66,7 @@ router.use('/', isNotLoggedIn, function(req,res,next){
 })
 
 router.get('/signup', function(req, res, next) {
+  res.locals.currentUrl = constants.SIGNUP;
   var messages = req.flash('error');
   res.render('signup', { title: 'signup', style: 'login.css', script: 'login.js' , csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
 });
@@ -82,6 +86,7 @@ router.post('/signup',
 ));
 
 router.get('/signin', function(req, res, next) {
+  res.locals.currentUrl =  constants.SIGNIN;
   var messages = req.flash('error');
   res.render('signin', { title: 'singin', style: 'login.css', script: 'login.js' , csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
 });
