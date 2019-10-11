@@ -1,4 +1,4 @@
-module.exports = {
+var constant_variables = {
     'ABOUT': 'ABOUT',
     'SIGNUP': 'SIGNUP',
     'SIGNIN': 'SIGNIN',
@@ -7,6 +7,9 @@ module.exports = {
     'PROFILE': 'PROFILE',
     'CONTACT': 'CONTACT',
     'PROJECT': 'PROJECT',
-    'PROJECT_DETAILS': 'PROJECT_DETAILS'
+    'PROJECT_DETAILS': 'PROJECT_DETAILS',
+    'NEW_POST': 'NEW_POST'
 }
+
+module.exports = constant_variables
 

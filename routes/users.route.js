@@ -6,6 +6,7 @@ const multer = require("multer");
 const { check } = require('express-validator');
 const csrfProtection = csurf();
 const constants = require('../utils/constants');
+const authHelper = require('../utils/authHelpers');
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
@@ -30,38 +31,22 @@ const upload = multer({storage: storage, limits: {
   fileSize: 1024 * 1024 * 2
 }, fileFilter: fileFilter})
 
-
 router.use(csrfProtection);
 
-function isLoggedIn(req, res, next){
-  if(req.isAuthenticated()){
-    return next();
-  }
-  res.redirect('/users/signup');
-}
-
-
-function isNotLoggedIn(req, res, next){
-  if(!req.isAuthenticated()){
-    return next();
-  }
-  res.redirect('/users/profile');
-}
-
-router.get('/profile', isLoggedIn, function(req, res, next){
+router.get('/profile', authHelper.isLoggedIn, function(req, res, next){
   res.locals.currentUrl = constants.PROFILE;
   var user = req.session.user;
   res.render('profile', {user: req.user});
 })
 
-router.get('/signout', isLoggedIn, function(req, res, next){
+router.get('/signout', authHelper.isLoggedIn, function(req, res, next){
   res.locals.currentUrl = 'SIGNOUT';
   req.logout();
   res.redirect('/');
 })
 
 
-router.use('/', isNotLoggedIn, function(req,res,next){
+router.use('/', authHelper.isNotLoggedIn, function(req,res,next){
   next();
 })
 

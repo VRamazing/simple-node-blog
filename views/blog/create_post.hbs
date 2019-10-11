@@ -8,7 +8,7 @@
     <div class="form-group row">
       <label for="post-author" class="col-sm-2 col-form-label">Author</label>
       <div class="col-sm-10">
-        <input type="text" readonly class="form-control-plaintext" id="post-author" value="James gunn">
+        <input type="text" readonly class="form-control-plaintext" id="post-author" value="{{author_name}}">
       </div>
     </div>
     
@@ -30,7 +30,6 @@
       <label for="post-thumbnail-image">Select a thumbnail image</label>
       <input type="file" class="form-control-file" id="post-thumbnail-image">
     </div>
-
     
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
     <button type="button" class="btn btn-primary">Create post</button>
