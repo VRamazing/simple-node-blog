@@ -39,3 +39,16 @@ a {
 .error-actions .btn {
   margin-right:10px; 
 }
+
+.label-input{
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.icon-label-group{
+  width: 110px;
+}
+
+.create-post-form  .icon-label-group{
+  width: 160px;
+}

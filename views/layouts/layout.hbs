@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="/stylesheets/default.css" rel="stylesheet"/>
     <link rel='stylesheet' href='/stylesheets/header.css' rel="stylesheet"/>
     <link rel='stylesheet' href='/stylesheets/footer.css' rel="stylesheet"/>
-    {{#if style}}
-    <link rel='stylesheet' href='/stylesheets/{{style}}' rel="stylesheet"/>
-    {{/if}}
-    {{!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/> --}}
+    {{!-- Extra styles --}}
+    {{#each style}}
+    <link rel='stylesheet' href='/stylesheets/{{this}}' rel="stylesheet"/>
+    {{/each}}
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
   </head>
   <body>
@@ -27,8 +27,9 @@
     <script src="/javascripts/header.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    {{#if script}}
-    <script src="/javascripts/{{script}}"></script>
-    {{/if}}
+    {{!-- Extra scripts --}}
+    {{#each script}}
+    <script src="/javascripts/{{this}}"></script>
+    {{/each}}
   </body>
 </html>

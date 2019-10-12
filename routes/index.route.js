@@ -11,12 +11,12 @@ router.get('/', function(req, res, next) {
 
 router.get('/about', function(req, res, next) {
   res.locals.currentUrl = constants.ABOUT;
-  res.render('about', { title: 'Express' , style: 'timeline.css'});
+  res.render('about', { title: 'Express' , style: ['timeline.css']});
 });
 
 router.get('/contact', function(req, res, next) {
   res.locals.currentUrl = constants.CONTACT;
-  res.render('contact', { title: 'Express' , style: 'blog-home.css'});
+  res.render('contact', { title: 'Express' , style: ['blog-home.css']});
 });
 
 module.exports = router;

@@ -53,7 +53,7 @@ router.use('/', authHelper.isNotLoggedIn, function(req,res,next){
 router.get('/signup', function(req, res, next) {
   res.locals.currentUrl = constants.SIGNUP;
   var messages = req.flash('error');
-  res.render('signup', { title: 'signup', style: 'login.css', script: 'login.js' , csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
+  res.render('signup', { title: 'signup', style: ['login.css'], script: ['login.js'] , csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
 });
 
 router.post('/signup', 
@@ -73,7 +73,7 @@ router.post('/signup',
 router.get('/signin', function(req, res, next) {
   res.locals.currentUrl =  constants.SIGNIN;
   var messages = req.flash('error');
-  res.render('signin', { title: 'singin', style: 'login.css', script: 'login.js' , csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
+  res.render('signin', { title: 'singin', style: ['login.css'], script: ['login.js'] , csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0});
 });
 
 router.post('/signin', [
