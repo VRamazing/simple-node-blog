@@ -26,17 +26,19 @@ router.get('/posts', function(req, res, next) {
     posts: [{
       'title': 'Things I learned from Ayn Rand',
       'content': 'Et esse eu adipisicing commodo eu velit minim ex laborum deserunt.',
+      'content_trimed': 'Et esse eu adipisicing commodo eu velit minim ex laborum deserunt.',
       'author': 'vignesh',
       'category': 'life',
       'thumbnail': 'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      'createdDate': new Date()
+      'createdDate': new Date(),
+      'postDetailLink': '/blog/posts/Things_I_learned_from_Ayn_Rand'
     }],
     recentPosts: ['/blog/posts/Things_I_learned_from_Ayn_Rand'],
     pages: 2,
   });
 });
 
-router.get('/posts/:postId/:postSlug', function(req, res, next) {
+router.get('/posts/:postSlug', function(req, res, next) {
   res.render('blog/post', {});
 });
 

@@ -13,13 +13,12 @@
 
    {{!-- Need to add csrf token to action url due to issue of multer not working with csurf --}}
   <form name="create-post-form" method="post" action="/blog/posts/new?_csrf={{csrfToken}}" class="create-post-form"  enctype="multipart/form-data">
-    
     <!-- Title -->
     <div class="form-group input-group">
       <div class="input-group-prepend">
           <span class="input-group-text icon-label-group"><i class="fa fa-header"></i><span class="label-input">Post title</span></span>
       </div>
-      <input name="new_post_title" class="form-control" placeholder="Enter post title" type="text" required />
+      <input name="title" class="form-control" placeholder="Enter post title" type="text" required />
     </div> 
 
     <!-- Description -->
@@ -27,7 +26,7 @@
       <div class="input-group-prepend">
         <span class="input-group-text icon-label-group"><i class="fa fa-paragraph"></i><span class="label-input">Post content 1</span></span>
       </div>
-      <textarea name="new_post_title" class="form-control" placeholder="Enter post content"></textarea>
+      <textarea name="content" class="form-control" placeholder="Enter post content" required></textarea>
     </div>
 
     <!-- Tags -->
@@ -35,19 +34,18 @@
       <div class="input-group-prepend">
         <span class="input-group-text icon-label-group"><i class="fa fa-archive"></i><span class="label-input">Category</span></span>
       </div>
-      <select class="form-control" id="post-tags">
-        <option>Technology</option>
-        <option>Life</option>
-        <option>Entrepreneurship</option>
+      <select class="form-control" id="post-tags" name="category">
+        <option name="technology">Technology</option>
+        <option name="life">Life</option>
+        <option name="entrepreneurship">Entrepreneurship</option>
       </select>
-    </div> 
-
+    </div>
 
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text icon-label-group"><i class="fa fa-picture-o" aria-hidden="true"></i><span class="label-input">Thumbnail image</span></span>
 		  </div>
-      <input class="form-control" placeholder="Re-enter password" type="file"  name="avatar" style="font-size:14px;">
+      <input class="form-control" type="file"  name="thumbnail" style="font-size:14px;" required>
     </div> <!-- form-group// -->
     
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
