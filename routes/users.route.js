@@ -35,7 +35,6 @@ router.use(csrfProtection);
 
 router.get('/profile', authHelper.isLoggedIn, function(req, res, next){
   res.locals.currentUrl = constants.PROFILE;
-  var user = req.session.user;
   res.render('profile', {user: req.user});
 })
 

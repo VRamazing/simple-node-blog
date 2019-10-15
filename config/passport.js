@@ -38,7 +38,7 @@ passport.use('local.signup', new LocalStrategy({
         newUser.name = req.body.name;
         newUser.profession = req.body.profession;
         if(req.file === undefined){
-            newUser.avatar = 'default_avatar.png';
+            newUser.avatar = 'default.png';
         }
         else{
             newUser.avatar = req.file.filename;

@@ -72,6 +72,7 @@ app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redi
 app.use('/js', express.static(__dirname + '/node_modules/popper.js/dist'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/uploads/users',express.static(__dirname + '/uploads/users'));
+app.use('/uploads/posts',express.static(__dirname + '/uploads/posts'));
 
 app.use(function(req, res, next){
   res.locals.login = req.isAuthenticated();
