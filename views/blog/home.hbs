@@ -22,8 +22,8 @@
                     <img class="card-img-top" src="{{this.thumbnail}}" alt="{{this.title}} image_thumbnail">
                     <div class="card-body">
                         <h2 class="card-title">{{this.title}}</h2>
-                        <p class="card-text">{{this.content_trimed}}</p>
-                        <a href="{{this.postDetailLink}}" class="btn btn-primary">Read More &rarr;</a>
+                        <p class="card-text">{{{substr this.content}}}</p>
+                        <a href="{{this.detailLink}}" class="btn btn-primary">Read More &rarr;</a>
                     </div>
                     <div class="card-footer text-muted">
                         Posted on {{this.createdDate}} by

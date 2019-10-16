@@ -8,6 +8,7 @@ const postSchema = mongoose.Schema({
     category: { type: mongoose.Schema.Types.Array, required: true },
     thumbnail: { type: String, required: true },
     createdDate: { type: Date, default: Date.now },
+    detailLink: { type: String, required: true }
 })
 
 module.exports = mongoose.model("Post", postSchema);

@@ -41,6 +41,10 @@ var hbs = exhbs.create({
         if(url1 == url2){
           return options.fn(this);
         }
+      },
+      substr: function(passedString, options){
+        var theString = passedString.substring(0,170) + "...";
+        return theString
       }
   },
   defaultLayout: 'layout', extname: '.hbs'

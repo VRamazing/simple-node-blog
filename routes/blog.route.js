@@ -1,11 +1,18 @@
+const mongoose  = require("mongoose");
 var express = require('express');
 const multer = require("multer");
 const { check } = require('express-validator');
-var router = express.Router();
-const constants = require('../utils/constants');
 const authHelper = require('../utils/authHelpers');
 var Post = require('../models/post.model');
 
+const constants = require('../utils/constants');
+var utils =require('../utils/utils');
+
+var csurf = require('csurf');
+
+var router = express.Router();
+
+const csrfProtection = csurf();
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb){
@@ -30,6 +37,7 @@ const upload = multer({storage: storage, limits: {
 fileSize: 1024 * 1024 * 10
 }, fileFilter: fileFilter})
 
+router.use(csrfProtection);
 
 /* GET home page. */
 router.use('/', function(req,res,next){
@@ -42,25 +50,18 @@ router.get('/', function(req, res, next){
 });
 
 router.get('/posts', function(req, res, next) {
-  // Find all posts
-  // Find and sort posts by dates,
-  // Calculate and send pagination
+  // Calculate and send pagination - 10 posts per page. Total post/4
+  // Move top 5 recent posts links to recentPosts key
 
-  
-  res.render('blog/home', {
-    posts: [{
-      'title': 'Things I learned from Ayn Rand',
-      'content': 'Et esse eu adipisicing commodo eu velit minim ex laborum deserunt.',
-      'content_trimed': 'Et esse eu adipisicing commodo eu velit minim ex laborum deserunt.',
-      'author': 'vignesh',
-      'category': 'life',
-      'thumbnail': 'https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      'createdDate': new Date(),
-      'postDetailLink': '/blog/posts/Things_I_learned_from_Ayn_Rand'
-    }],
-    recentPosts: ['/blog/posts/Things_I_learned_from_Ayn_Rand'],
-    pages: 2,
-  });
+  Post.find({}, function (err, posts) {
+    if (err) return console.error(err);
+    res.render('blog/home', {
+      posts: posts.reverse(),
+      //dummy
+      recentPosts: ['/blog/posts/Things_I_learned_from_Ayn_Rand'],
+      pages: 2,
+    });
+  })
 });
 
 router.get('/posts/new', authHelper.isLoggedIn, function(req, res, next) {
@@ -76,19 +77,33 @@ router.get('/posts/new', authHelper.isLoggedIn, function(req, res, next) {
 });
 
 router.get('/posts/:postSlug/', function(req, res, next) {
-  res.render('blog/post', {});
+  var postTitle = utils.convertUrlIdToTitleString(req.params.postSlug);
+  Post.findOne({title: postTitle}, function(err, post){
+    if (err) return console.error(err);
+    console.log(post);
+    res.render('blog/post', {post: post});
+  })
 });
 
 router.post('/posts/new', authHelper.isLoggedIn, upload.single('thumbnail'), function(req, res, next) {
   // console.log('I entered here')
   var post = new Post();
-  post.title = req.body.title;
+
+  post.title = utils.capitalizeFirstLetter(req.body.title);
   post.content = req.body.content;
-  post.author = req.body.author;
+  post.author = req.user.name;
   post.category = req.body.category;
-  post.thumbnail = req.file.filename;
+  post.thumbnail = constants.POST_THUMBNAIL_URL + req.file.filename;
   post.createdDate = new Date().toDateString();
-  console.log(post);
+  post._id = new mongoose.Types.ObjectId();
+  post.detailLink = constants.POSTS_URL + utils.convertStringToUrlFriendly(req.body.title)
+
+  post.save(function (err, currentPost) {
+    if (err) return console.error(err);
+    console.log(currentPost);
+    console.log(currentPost.title + " saved to blog.");
+  }); 
+
   res.redirect('/blog');
 });
 

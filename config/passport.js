@@ -2,6 +2,8 @@ var passport = require('passport');
 var User = require('../models/user.model');
 var LocalStrategy = require('passport-local').Strategy;
 const { validationResult } = require('express-validator');
+const constants = require('../utils/constants');
+
 
 var mongoose = require('mongoose');
 
@@ -38,10 +40,10 @@ passport.use('local.signup', new LocalStrategy({
         newUser.name = req.body.name;
         newUser.profession = req.body.profession;
         if(req.file === undefined){
-            newUser.avatar = 'default.png';
+            newUser.avatar = constants.USER_THUMBNAIL_URL + 'default.png';
         }
         else{
-            newUser.avatar = req.file.filename;
+            newUser.avatar = constants.USER_THUMBNAIL_URL + req.file.filename;
         }
         newUser.save(function(err, result){
             if(err){
