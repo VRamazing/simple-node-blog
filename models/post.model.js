@@ -5,7 +5,7 @@ const postSchema = mongoose.Schema({
     title: { type: String, required: true, unique:true},
     content: { type: String, required: true },
     author: { type: String, required: true },
-    category: { type: mongoose.Schema.Types.Array, required: true },
+    category: { type: String, required: true },
     thumbnail: { type: String, required: true },
     createdDate: { type: Date, default: Date.now },
     detailLink: { type: String, required: true }

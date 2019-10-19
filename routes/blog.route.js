@@ -1,7 +1,8 @@
 const mongoose  = require("mongoose");
 var express = require('express');
 const multer = require("multer");
-const { check } = require('express-validator');
+const { check, validationResult } = require('express-validator');
+
 const authHelper = require('../utils/authHelpers');
 var Post = require('../models/post.model');
 
@@ -11,6 +12,8 @@ var utils =require('../utils/utils');
 var csurf = require('csurf');
 
 var router = express.Router();
+
+var recentPosts = []
 
 const csrfProtection = csurf();
 
@@ -53,13 +56,17 @@ router.get('/posts', function(req, res, next) {
   // Calculate and send pagination - 10 posts per page. Total post/4
   // Move top 5 recent posts links to recentPosts key
 
-  Post.find({}, function (err, posts) {
+  Post.find({}, null, {sort: {_id: -1}}, function (err, posts) {
     if (err) return console.error(err);
+    var pages = Math.floor(posts/10);
+    recentPosts = posts.slice(0, 5);
+    var noPosts = posts.length === 0
     res.render('blog/home', {
-      posts: posts.reverse(),
-      //dummy
-      recentPosts: ['/blog/posts/Things_I_learned_from_Ayn_Rand'],
-      pages: 2,
+      posts: posts,
+      recentPosts: recentPosts,
+      pages: pages,
+      style: ['blog-post.css'],
+      noPost: noPosts
     });
   })
 });
@@ -81,30 +88,43 @@ router.get('/posts/:postSlug/', function(req, res, next) {
   Post.findOne({title: postTitle}, function(err, post){
     if (err) return console.error(err);
     console.log(post);
-    res.render('blog/post', {post: post});
+    res.render('blog/post', {post: post, recentPosts: recentPosts, style: ['blog-post.css']});
   })
 });
 
-router.post('/posts/new', authHelper.isLoggedIn, upload.single('thumbnail'), function(req, res, next) {
-  // console.log('I entered here')
-  var post = new Post();
+router.post('/posts/new', 
+  authHelper.isLoggedIn, 
+  upload.single('thumbnail'),
+  [
+    check('title', 'Title should have atleast 10 characters').exists().isLength({ min: 10 }).trim(),
+    check('content', 'Content should have atleast 10 characters').exists().isLength({ min: 20 }).trim(),
+    // strip title, content
+  ],
+  function(req, res, next) {
+    var messages = validationResult(req)
+    const hasErrors = !messages.isEmpty();
+    if(hasErrors){
+      return res.status(422).json({ messages: messages.array(), hasErrors: hasErrors});
+      // res.redirect('/post/new', {author_name: username,  csrfToken: req.csrfToken(), messages: 'Password confirmation does not match password' })
+    }
+    
+    var post = new Post();
+    post.title = utils.capitalizeFirstLetter(req.body.title);
+    post.content = req.body.content;
+    post.author = req.user.name;
+    post.category = req.body.category;
+    post.thumbnail = constants.POST_THUMBNAIL_URL + req.file.filename;
+    post.createdDate = new Date().toUTCString();
+    post._id = new mongoose.Types.ObjectId();
+    post.detailLink = constants.POSTS_URL + utils.convertStringToUrlFriendly(req.body.title)
 
-  post.title = utils.capitalizeFirstLetter(req.body.title);
-  post.content = req.body.content;
-  post.author = req.user.name;
-  post.category = req.body.category;
-  post.thumbnail = constants.POST_THUMBNAIL_URL + req.file.filename;
-  post.createdDate = new Date().toDateString();
-  post._id = new mongoose.Types.ObjectId();
-  post.detailLink = constants.POSTS_URL + utils.convertStringToUrlFriendly(req.body.title)
+    post.save(function (err, currentPost) {
+      if (err) return console.error(err);
+      console.log(currentPost);
+      console.log(currentPost.title + " saved to blog.");
+    }); 
 
-  post.save(function (err, currentPost) {
-    if (err) return console.error(err);
-    console.log(currentPost);
-    console.log(currentPost.title + " saved to blog.");
-  }); 
-
-  res.redirect('/blog');
+    res.redirect('/blog');
 });
 
 module.exports = router;

@@ -11,7 +11,8 @@ var constant_variables = {
     'NEW_POST': 'NEW_POST',
     "POST_THUMBNAIL_URL": "/uploads/posts/",
     "USER_THUMBNAIL_URL": "/uploads/users/",
-    "POSTS_URL": "/posts/"
+    "POSTS_URL": "/blog/posts/",
+    "MAIN_URL": "https://www.vigneshramesh.in"
 
 }
 

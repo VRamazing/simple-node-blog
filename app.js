@@ -45,6 +45,9 @@ var hbs = exhbs.create({
       substr: function(passedString, options){
         var theString = passedString.substring(0,170) + "...";
         return theString
+      },
+      convertDateToLocal: function(date, options){
+        return date;
       }
   },
   defaultLayout: 'layout', extname: '.hbs'
