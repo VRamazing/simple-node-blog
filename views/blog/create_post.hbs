@@ -21,7 +21,7 @@
       <input name="title" class="form-control" placeholder="Enter post title" type="text" required />
     </div> 
 
-    <!-- Description -->
+    {{!-- Description --}}
     <div class="form-group input-group">
       <div class="input-group-prepend">
         <span class="input-group-text icon-label-group"><i class="fa fa-paragraph"></i><span class="label-input">Post content 1</span></span>
@@ -29,7 +29,7 @@
       <textarea name="content" class="form-control" placeholder="Enter post content" rows="8" required></textarea>
     </div>
 
-    <!-- Tags -->
+    {{!-- Tags --}}
     <div class="form-group input-group">
       <div class="input-group-prepend">
         <span class="input-group-text icon-label-group"><i class="fa fa-archive"></i><span class="label-input">Category</span></span>
@@ -41,12 +41,13 @@
       </select>
     </div>
 
+    {{!-- Thumbnail --}}
     <div class="form-group input-group">
     	<div class="input-group-prepend">
 		    <span class="input-group-text icon-label-group"><i class="fa fa-picture-o" aria-hidden="true"></i><span class="label-input">Thumbnail image</span></span>
 		  </div>
       <input class="form-control" type="file"  name="thumbnail" style="font-size:14px;" required>
-    </div> <!-- form-group// -->
+    </div>
     
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
 

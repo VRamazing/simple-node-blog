@@ -92,6 +92,16 @@ router.get('/posts/:postSlug/', function(req, res, next) {
   })
 });
 
+router.get('/posts/search/:postSlug/', function(req, res, next) {
+  /*var postTitle = utils.convertUrlIdToTitleString(req.params.postSlug);*/
+  
+  /*Post.findOne({title: postTitle}, function(err, post){
+    if (err) return console.error(err);
+    console.log(post);
+    res.render('blog/post', {post: post, recentPosts: recentPosts, style: ['blog-post.css']});
+  })*/
+});
+
 router.post('/posts/new', 
   authHelper.isLoggedIn, 
   upload.single('thumbnail'),
