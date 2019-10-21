@@ -14,7 +14,7 @@
     </div>
   {{/if }}
 
-  <form name="post-form" method="post" action="/contact?_csrf={{csrfToken}}">
+  <form name="post-form" method="post" action="/sendmail?_csrf={{csrfToken}}">
    
    <!-- name -->
    <div class="form-group input-group">
@@ -43,7 +43,7 @@
 
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
-    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+    <button type="submit" class="btn btn-primary btn-block">Send message</button>
   </form>
   {{!-- <form name="post-form" action="post">
     <div class="form-group">

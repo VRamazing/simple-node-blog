@@ -1,0 +1,7 @@
+.success-mail{
+    min-height: 300px; 
+    display: flex; 
+    align-content: center; 
+    align-items: center;
+    text-align: center;
+}

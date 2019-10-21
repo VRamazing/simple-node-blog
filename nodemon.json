@@ -2,7 +2,9 @@
 {
     "env": {
       "NODE_ENV": "development",
-      "MONGO_ATLAS_PW": "rainbow6"
+      "MONGO_ATLAS_PW": "rainbow6",
+      "MAILER_PASSWD": "drumstrang",
+      "MAILER_EMAIL": "dummy3249@gmail.com"
     },
     "ext": "js,json"
 }

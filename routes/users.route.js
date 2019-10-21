@@ -1,12 +1,13 @@
 var express = require('express');
 var csurf = require('csurf');
-var router = express.Router();
 var passport = require('passport');
 const multer = require("multer");
 const { check } = require('express-validator');
 const csrfProtection = csurf();
 const constants = require('../utils/constants');
 const authHelper = require('../utils/authHelpers');
+
+var router = express.Router();
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb){

@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
 var flash = require('connect-flash');
+const helmet = require('helmet')
 var mongoStore = require('connect-mongo')(session);
 
 require('./config/passport');
@@ -72,6 +73,7 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(helmet());
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
