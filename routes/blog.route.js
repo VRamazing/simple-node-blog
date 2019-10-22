@@ -85,6 +85,7 @@ router.get('/posts/new', authHelper.isLoggedIn, function(req, res, next) {
 
 router.get('/posts/:postSlug/', function(req, res, next) {
   var postTitle = utils.convertUrlIdToTitleString(req.params.postSlug);
+  console.log(postTitle)
   Post.findOne({title: postTitle}, function(err, post){
     if (err) return console.error(err);
     console.log(post);

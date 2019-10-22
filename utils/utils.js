@@ -1,5 +1,5 @@
 module.exports.capitalizeFirstLetter = function(str){
-    return str.charAt(0).toUpperCase() + str.slice(1); 
+    return str.charAt(0).toUpperCase() + str.toLowerCase().slice(1); 
 }
 
 module.exports.convertStringToUrlFriendly = function(str){

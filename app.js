@@ -48,7 +48,7 @@ var hbs = exhbs.create({
         return theString
       },
       convertDateToLocal: function(date, options){
-        return date;
+        return date.toLocaleString();
       }
   },
   defaultLayout: 'layout', extname: '.hbs'
