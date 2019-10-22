@@ -1,12 +1,3 @@
-var fs = require('fs');
-
-var path = require('path');
-
-var awesome; 
-fs.readFile('../public/javascripts/constants.js', 'utf8', function(err, contents) {
-    awesome = contents;
-});
-
 var constant_variables = {
     'ABOUT': 'ABOUT',
     'SIGNUP': 'SIGNUP',
@@ -24,6 +15,3 @@ var constant_variables = {
     "MAIN_URL": "https://www.vigneshramesh.in"
 
 }
-
-module.exports = {constant_variables, awesome}
-
