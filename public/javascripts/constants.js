@@ -13,5 +13,5 @@ var constant_variables = {
     "USER_THUMBNAIL_URL": "/uploads/users/",
     "POSTS_URL": "/blog/posts/",
     "MAIN_URL": "https://www.vigneshramesh.in"
-
 }
+

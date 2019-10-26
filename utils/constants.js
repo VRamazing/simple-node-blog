@@ -1,11 +1,12 @@
-var fs = require('fs');
+// var fs = require('fs');
 
-var path = require('path');
+// var path = require('path');
 
-var awesome; 
-fs.readFile('../public/javascripts/constants.js', 'utf8', function(err, contents) {
-    awesome = contents;
-});
+// var awesome;
+
+// fs.readFile('../public/javascripts/constants.js', 'utf8', function(err, contents) {
+//     awesome = contents;
+// });
 
 var constant_variables = {
     'ABOUT': 'ABOUT',
@@ -25,5 +26,8 @@ var constant_variables = {
 
 }
 
-module.exports = {constant_variables, awesome}
+
+module.exports = constant_variables;
+
+// module.exports = {constant_variables: constant_variables, awesome: awesome}
 

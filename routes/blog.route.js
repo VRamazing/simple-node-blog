@@ -73,14 +73,7 @@ router.get('/posts', function(req, res, next) {
 
 router.get('/posts/new', authHelper.isLoggedIn, function(req, res, next) {
   res.locals.currentUrl = 'NEW_POST';
-  var username;
-  if(!req.user.name){
-    username= 'Anonymous'
-  }
-  else{
-    username = req.user.name
-  }
-  res.render('blog/create_post', {author_name: username,  csrfToken: req.csrfToken()});
+  res.render('blog/create_post', {csrfToken: req.csrfToken()});
 });
 
 router.get('/posts/:postSlug/', function(req, res, next) {
@@ -107,16 +100,16 @@ router.post('/posts/new',
   authHelper.isLoggedIn, 
   upload.single('thumbnail'),
   [
-    check('title', 'Title should have atleast 10 characters').exists().isLength({ min: 10 }).trim(),
-    check('content', 'Content should have atleast 10 characters').exists().isLength({ min: 20 }).trim(),
-    // strip title, content
+    check('title', 'Title should have atleast 5 characters').exists().trim().isLength({ min: 10 }),
+    check('content', 'Content should have atleast 20 characters').exists().trim().isLength({ min: 20 }),
+    check('category', 'Select the correct category').exists().not().equals("select"),
   ],
   function(req, res, next) {
     var messages = validationResult(req)
     const hasErrors = !messages.isEmpty();
+    console.log(messages)
     if(hasErrors){
-      return res.status(422).json({ messages: messages.array(), hasErrors: hasErrors});
-      // res.redirect('/post/new', {author_name: username,  csrfToken: req.csrfToken(), messages: 'Password confirmation does not match password' })
+      return res.status(401).render('blog/create_post', { messages: messages.array(), hasErrors: hasErrors,  csrfToken: req.csrfToken()});
     }
     
     var post = new Post();

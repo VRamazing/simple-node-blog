@@ -1,12 +1,14 @@
 <div class="container">
   <h4 class="mb-4">Create a new post</h4>
   {{#if hasErrors }}
-    <div class="alert alert-danger">
+    <div>
       {{#each messages}}
-        {{this}}
-         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <div class="alert alert-danger">
+          {{this.msg}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       {{/each}}
     </div>
   {{/if }}
@@ -35,6 +37,7 @@
         <span class="input-group-text icon-label-group"><i class="fa fa-archive"></i><span class="label-input">Category</span></span>
       </div>
       <select class="form-control" id="post-tags" name="category">
+        <option value="select">category</option>
         <option value="technology">Technology</option>
         <option value="life">Life</option>
         <option value="entrepreneurship">Entrepreneurship</option>
@@ -46,7 +49,7 @@
     	<div class="input-group-prepend">
 		    <span class="input-group-text icon-label-group"><i class="fa fa-picture-o" aria-hidden="true"></i><span class="label-input">Thumbnail image</span></span>
 		  </div>
-      <input class="form-control" type="file"  name="thumbnail" style="font-size:14px;" required>
+      <input class="form-control" type="file"  name="thumbnail" style="font-size:14px;" accept="image/x-png,image/gif,image/jpeg" required>
     </div>
     
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
