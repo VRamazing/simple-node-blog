@@ -11,6 +11,9 @@ var utils =require('../utils/utils');
 
 var csurf = require('csurf');
 
+console.log("_______________________________");
+console.log(constants);
+
 var router = express.Router();
 
 var recentPosts = []
@@ -98,19 +101,21 @@ router.get('/posts/search/:postSlug/', function(req, res, next) {
 
 router.post('/posts/new', 
   authHelper.isLoggedIn, 
-  upload.single('thumbnail'),
   [
     check('title', 'Title should have atleast 5 characters').exists().trim().isLength({ min: 10 }),
     check('content', 'Content should have atleast 20 characters').exists().trim().isLength({ min: 20 }),
     check('category', 'Select the correct category').exists().not().equals("select"),
   ],
+  upload.single('thumbnail'),
   function(req, res, next) {
     var messages = validationResult(req)
     const hasErrors = !messages.isEmpty();
-    console.log(messages)
+
     if(hasErrors){
-      return res.status(401).render('blog/create_post', { messages: messages.array(), hasErrors: hasErrors,  csrfToken: req.csrfToken()});
+      return res.render('blog/create_post', { messages: messages.array(), hasErrors: hasErrors,  csrfToken: req.csrfToken()});
     }
+
+    console.log(constants);
     
     var post = new Post();
     post.title = utils.capitalizeFirstLetter(req.body.title);
@@ -123,12 +128,24 @@ router.post('/posts/new',
     post.detailLink = constants.POSTS_URL + utils.convertStringToUrlFriendly(req.body.title)
 
     post.save(function (err, currentPost) {
-      if (err) return console.error(err);
-      console.log(currentPost);
+      
+      if (err) {
+        console.log(err);
+        if (err.name === 'MongoError' && err.code === 11000) {
+        
+          // Duplicate title
+          return res.render('blog/create_post', { hasErrors: true, messages: [{msg: 'Post title already exists!'}], csrfToken: req.csrfToken()});
+        }
+
+        // Some other error
+        return res.render('blog/create_post', { hasErrors: true, messages: [{msg: err.errmsg}], csrfToken: req.csrfToken()});
+      }
+      // console.log(currentPost);
       console.log(currentPost.title + " saved to blog.");
+      res.redirect('/blog');
+
     }); 
 
-    res.redirect('/blog');
 });
 
 module.exports = router;

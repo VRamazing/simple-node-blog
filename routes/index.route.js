@@ -22,6 +22,7 @@ var transporter = nodemailer.createTransport({
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.locals.currentUrl = constants.BLOG;
+  // console.log(constants.awesome);
   res.redirect('/blog/posts/');
 });
 
