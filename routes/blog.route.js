@@ -101,12 +101,12 @@ router.get('/posts/search/:postSlug/', function(req, res, next) {
 
 router.post('/posts/new', 
   authHelper.isLoggedIn, 
+  upload.single('thumbnail'),
   [
     check('title', 'Title should have atleast 5 characters').exists().trim().isLength({ min: 10 }),
     check('content', 'Content should have atleast 20 characters').exists().trim().isLength({ min: 20 }),
     check('category', 'Select the correct category').exists().not().equals("select"),
   ],
-  upload.single('thumbnail'),
   function(req, res, next) {
     var messages = validationResult(req)
     const hasErrors = !messages.isEmpty();
@@ -128,20 +128,22 @@ router.post('/posts/new',
     post.detailLink = constants.POSTS_URL + utils.convertStringToUrlFriendly(req.body.title)
 
     post.save(function (err, currentPost) {
-      
       if (err) {
-        console.log(err);
+        // console.log(err);
+
+        //remove the uploaded file if there was error
+
         if (err.name === 'MongoError' && err.code === 11000) {
-        
           // Duplicate title
+          res.status(422)
           return res.render('blog/create_post', { hasErrors: true, messages: [{msg: 'Post title already exists!'}], csrfToken: req.csrfToken()});
         }
-
         // Some other error
+        res.status(422)
         return res.render('blog/create_post', { hasErrors: true, messages: [{msg: err.errmsg}], csrfToken: req.csrfToken()});
       }
-      // console.log(currentPost);
-      console.log(currentPost.title + " saved to blog.");
+      
+      console.log("Current post -" + JSON.stringify(currentPost, '', 2));
       res.redirect('/blog');
 
     }); 
