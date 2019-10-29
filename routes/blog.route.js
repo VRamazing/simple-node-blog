@@ -11,6 +11,9 @@ var utils =require('../utils/utils');
 
 var csurf = require('csurf');
 
+console.log("_______________________________");
+console.log(constants);
+
 var router = express.Router();
 
 var recentPosts = []
@@ -107,10 +110,12 @@ router.post('/posts/new',
   function(req, res, next) {
     var messages = validationResult(req)
     const hasErrors = !messages.isEmpty();
-    console.log(messages)
+
     if(hasErrors){
-      return res.status(401).render('blog/create_post', { messages: messages.array(), hasErrors: hasErrors,  csrfToken: req.csrfToken()});
+      return res.render('blog/create_post', { messages: messages.array(), hasErrors: hasErrors,  csrfToken: req.csrfToken()});
     }
+
+    console.log(constants);
     
     var post = new Post();
     post.title = utils.capitalizeFirstLetter(req.body.title);
@@ -123,12 +128,26 @@ router.post('/posts/new',
     post.detailLink = constants.POSTS_URL + utils.convertStringToUrlFriendly(req.body.title)
 
     post.save(function (err, currentPost) {
-      if (err) return console.error(err);
-      console.log(currentPost);
-      console.log(currentPost.title + " saved to blog.");
+      if (err) {
+        // console.log(err);
+
+        //remove the uploaded file if there was error
+
+        if (err.name === 'MongoError' && err.code === 11000) {
+          // Duplicate title
+          res.status(422)
+          return res.render('blog/create_post', { hasErrors: true, messages: [{msg: 'Post title already exists!'}], csrfToken: req.csrfToken()});
+        }
+        // Some other error
+        res.status(422)
+        return res.render('blog/create_post', { hasErrors: true, messages: [{msg: err.errmsg}], csrfToken: req.csrfToken()});
+      }
+      
+      console.log("Current post -" + JSON.stringify(currentPost, '', 2));
+      res.redirect('/blog');
+
     }); 
 
-    res.redirect('/blog');
 });
 
 module.exports = router;
