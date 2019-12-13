@@ -1,0 +1,29 @@
+<div> <br /><br />
+
+<!-- Testimonials Offered -->
+  <div class="container-fluid grey lighten-5 scrollspy" id="Testimonials">
+    <div class="section portfolio">
+
+      <h5 class="center  blue-grey-text"> What my clients say about me...</h5>
+      <br />
+
+      <div class = " container">
+        {{#each testimonials }}
+        <blockquote class = "teal-text"><br />
+          <i class="fa fa-quote-left fa-1x" aria-hidden="true" ></i>    
+                <span>{{content}}</span>
+                <footer class="right">
+                <em class = "grey-text lighten-5">
+                   {{author}}
+                  </em>
+                </footer>
+                <br />
+        </blockquote>
+        {{/each}}
+        <br />
+        <br />
+      </div>
+    </div>
+  </div>
+ </div>
+</div>

@@ -11,14 +11,13 @@ var utils =require('../utils/utils');
 
 var csurf = require('csurf');
 
-console.log("_______________________________");
-console.log(constants);
-
 var router = express.Router();
 
 var recentPosts = []
 
 const csrfProtection = csurf();
+
+const postsPerPage = 2;
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb){
@@ -55,23 +54,57 @@ router.get('/', function(req, res, next){
     res.redirect('/blog/posts')
 });
 
-router.get('/posts', function(req, res, next) {
+router.get('/posts', function(req, res, next){
+  res.redirect('/posts/0');
+})
+
+router.get('/posts/:page', function(req, res, next) {
   // Calculate and send pagination - 10 posts per page. Total post/4
   // Move top 5 recent posts links to recentPosts key
+  var currentPage = parseInt(req.params.page);
+  var previousPage, nextPage;
 
-  Post.find({}, null, {sort: {_id: -1}}, function (err, posts) {
-    if (err) return console.error(err);
-    var pages = Math.floor(posts/10);
-    recentPosts = posts.slice(0, 5);
-    var noPosts = posts.length === 0
-    res.render('blog/home', {
-      posts: posts,
-      recentPosts: recentPosts,
-      pages: pages,
-      style: ['blog-post.css'],
-      noPost: noPosts
-    });
-  })
+  if(isNaN(currentPage)){
+    res.status(404)
+    return res.redirect('/error/pagenotfound')
+  }
+
+  Post.countDocuments({}, function (err, count) {
+    if(err){
+      console.log(err)
+    }
+
+    var totalPages = Math.ceil(count/postsPerPage);
+
+    if(currentPage == 0){
+      previousPage=null;
+    }
+    else{
+      previousPage-=1;
+    }
+
+    if(currentPage == totalPages){
+      nextPage=null;
+    }
+    else{
+      nextPage+=1;
+    }
+
+    var postsToSkip = postsPerPage * currentPage;
+    console.log(postsPerPage)
+
+    Post.find({}, {skip: postsToSkip, limit: postsPerPage}, {sort: {_id: -1}}, function (err, posts) {
+      if (err) return console.error(err);
+      console.log(posts)
+      res.render('blog/home', {
+        posts: posts,
+        style: ['blog-post.css'],
+        previousPage: previousPage,
+        nextPage: nextPage,
+        noPost: count==0
+      });
+    })
+  });
 });
 
 router.get('/posts/new', authHelper.isLoggedIn, function(req, res, next) {

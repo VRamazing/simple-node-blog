@@ -57,4 +57,8 @@ router.post('/sendmail', function(req, res, next) {
   });
 });
 
+router.get('/error/pagenotfound', function(req, res, next) {
+  res.render('error', { error: {status: '404'} , message: 'Page not found'});
+});
+
 module.exports = router;

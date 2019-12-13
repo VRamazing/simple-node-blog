@@ -1,0 +1,61 @@
+ <div class="container-fluid blue-grey lighten-5 scrollspy" id="Portfolio" >
+<br />
+<br />
+  <div class="section portfolio">
+    <h5 class="center  teal-text">{{projects.length}}+ {{category_name}} and  counting.</h5>
+    <br />
+    <br />
+    <div class="row">
+      <!-- Row 1 -->
+
+      <div class="s12 cards-container">
+        <!-- Sabraang -->
+        {{#each projects}}
+        <div class="card projects">
+
+          <div class="card-image waves-effect waves-block waves-light">
+            <img alt = {{title}} class="activator" src = {{image}}>
+          </div>
+
+          <div class="card-content">
+            <span class="card-title activator grey-text text-darken-4">{{title}}
+              <!-- <i class="fa fa-ellipsis-v right" aria-hidden="true"></i> -->
+              <i class="fa fa-ellipsis-v right" aria-hidden="true"></i>
+            </span>
+
+            <span>
+              {{oneLineDesc}}
+            </span>
+
+            <p class = "role">
+              {{#each roles}}
+              <span class = "red accent-1">{{this}}</span>
+              {{/each}}
+            </p>
+
+            <div class = "techUsed">
+              {{#each techUsed}}
+                <div class = "chip" >
+                  {{this}}
+                </div>
+              {{/each}}
+            </div>
+            <p class = "card-link" v-if = "project.liveLink != ''"><a href={{liveLink}} target = "_blank">Visit Live Website</a></p>
+          </div>
+
+          <div class="card-reveal">
+            <span class="card-title grey-text text-darken-4">{{title}}<i class="fa fa-times right" aria-hidden="true"></i>
+            <p class="light"><ul class = "browser-default" style = "padding-left:20px;">
+              {{#each fullDesc}}
+              <li >{{this}}</li>
+              {{/each}}
+              
+              <li v-if = "project.gitLink != ''" >Code available for public use on <a href = {{gitLink}} target = "_blank">github</a></li>
+            </ul></p>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>

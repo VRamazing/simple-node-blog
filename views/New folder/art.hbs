@@ -1,0 +1,13 @@
+<div class="logo-container">	
+	<h5 class="center teal-text" style="font-style: italic">{{length}} + variegated artwork and Counting</h5>
+	<br />
+	<div class="art-row"> 
+		{{#each artwork}}
+		 	<div class="art-column">
+		 		{{#each this}}
+					<img class="{{tagClass}}" height="auto" width="100%" src={{imgUrl}} alt={{imgAlt}} />
+				{{/each}}
+			</div>
+		{{/each}} 
+	</div>
+</div>
