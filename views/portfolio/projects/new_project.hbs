@@ -1,0 +1,94 @@
+<div class="container">
+  <h4 class="mb-4">Create a new post</h4>
+  {{#if hasErrors }}
+    <div>
+      {{#each messages}}
+        <div class="alert alert-danger">
+          {{this.msg}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {{/each}}
+    </div>
+  {{/if }}
+
+  {{!-- Need to add csrf token to action url due to issue of multer not working with csurf --}}
+  <form name="create-post-form" method="post" action="/blog/posts/new?_csrf={{csrfToken}}" class="create-post-form"  enctype="multipart/form-data">
+    
+    <!-- Title -->
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+          <span class="input-group-text icon-label-group"><i class="fa fa-header"></i><span class="label-input">Project title</span></span>
+      </div>
+      <input name="title" class="form-control" placeholder="Enter project title" type="text" required />
+    </div> 
+
+    {{!-- Description --}}
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text icon-label-group"><i class="fa fa-paragraph"></i><span class="label-input">Project description</span></span>
+      </div>
+      <textarea name="description" class="form-control" placeholder="Enter project description" rows="8" required></textarea>
+    </div>
+
+    <!-- Technology used -->
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+          <span class="input-group-text icon-label-group"><i class="fa fa-tint" aria-hidden="true"></i><span class="label-input">Technology used</span></span>
+      </div>
+      <input name="technology-used" class="form-control" placeholder="Enter technologies used" type="text" required />
+    </div>
+
+     <!-- USP -->
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+          <span class="input-group-text icon-label-group"><i class="fa fa-car" aria-hidden="true"></i>
+<span class="label-input">USP</span></span>
+      </div>
+      <input name="usp" class="form-control" placeholder="Enter usp" type="text" required />
+    </div> 
+
+    <!-- Total team members -->
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+          <span class="input-group-text icon-label-group"><i class="fa fa-info" aria-hidden="true"></i><span class="label-input">Team members</span></span>
+      </div>
+      <input name="team-members" class="form-control" placeholder="Enter team members" type="number" min="1" required />
+    </div> 
+
+    {{!-- Thumbnail --}}
+    <div class="form-group input-group">
+    	<div class="input-group-prepend">
+		    <span class="input-group-text icon-label-group"><i class="fa fa-picture-o" aria-hidden="true"></i><span class="label-input">Project thumbnail</span></span>
+		  </div>
+      <input class="form-control" type="file"  name="project-thumbnail" style="font-size:14px;" accept="image/x-png,image/gif,image/jpeg" required>
+    </div>
+
+    <!-- Live link -->
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+          <span class="input-group-text icon-label-group"><i class="fa fa-link" aria-hidden="true"></i><span class="label-input">Project live link</span></span>
+      </div>
+      <input name="project-live-link" class="form-control" placeholder="Enter project link" type="text" />
+    </div> 
+
+    {{!-- Category --}}
+    <div class="form-group input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text icon-label-group"><i class="fa fa-archive"></i><span class="label-input">Category</span></span>
+      </div>
+      <select class="form-control" id="project-tags" name="category">
+        <option value="select">category</option>
+        <option value="back-end-web-app">Web application - Backend</option>
+        <option value="games">Games</option>
+        <option value="front-end-web-app">Web application - Front end</option>
+      </select>
+    </div>
+
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+    <button type="submit" class="btn btn-primary btn-block">Create projects</button>
+    
+  </form>
+</div>

@@ -11,9 +11,6 @@ var utils =require('../utils/utils');
 
 var csurf = require('csurf');
 
-console.log("_______________________________");
-console.log(constants);
-
 var router = express.Router();
 
 var recentPosts = []
@@ -60,7 +57,7 @@ router.get('/posts', function(req, res, next) {
   // Move top 5 recent posts links to recentPosts key
 
   Post.find({}, null, {sort: {_id: -1}}, function (err, posts) {
-    if (err) return console.error(err);
+    if (err) return
     var pages = Math.floor(posts/10);
     recentPosts = posts.slice(0, 5);
     var noPosts = posts.length === 0
@@ -81,10 +78,8 @@ router.get('/posts/new', authHelper.isLoggedIn, function(req, res, next) {
 
 router.get('/posts/:postSlug/', function(req, res, next) {
   var postTitle = utils.convertUrlIdToTitleString(req.params.postSlug);
-  console.log(postTitle)
   Post.findOne({title: postTitle}, function(err, post){
-    if (err) return console.error(err);
-    console.log(post);
+    if (err) return
     res.render('blog/post', {post: post, recentPosts: recentPosts, style: ['blog-post.css']});
   })
 });
@@ -114,8 +109,6 @@ router.post('/posts/new',
     if(hasErrors){
       return res.render('blog/create_post', { messages: messages.array(), hasErrors: hasErrors,  csrfToken: req.csrfToken()});
     }
-
-    console.log(constants);
     
     var post = new Post();
     post.title = utils.capitalizeFirstLetter(req.body.title);
@@ -129,10 +122,7 @@ router.post('/posts/new',
 
     post.save(function (err, currentPost) {
       if (err) {
-        // console.log(err);
-
         //remove the uploaded file if there was error
-
         if (err.name === 'MongoError' && err.code === 11000) {
           // Duplicate title
           res.status(422)
@@ -143,7 +133,6 @@ router.post('/posts/new',
         return res.render('blog/create_post', { hasErrors: true, messages: [{msg: err.errmsg}], csrfToken: req.csrfToken()});
       }
       
-      console.log("Current post -" + JSON.stringify(currentPost, '', 2));
       res.redirect('/blog');
 
     }); 

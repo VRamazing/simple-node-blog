@@ -16,7 +16,7 @@ require('./config/passport');
 var indexRouter = require('./routes/index.route');
 var usersRouter = require('./routes/users.route');
 var blogRouter = require('./routes/blog.route');
-
+var projectsRouter = require('./routes/projects.route');
 var app = express();
 
 mongoose.Promise = global.Promise;
@@ -78,7 +78,7 @@ app.use(helmet());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
-app.use('/js', express.static(__dirname + '/node_modules/popper.js/dist'));
+app.use('/js', express.static(__dirname + '/node_modules/popper.js/dist/umd'));
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/uploads/users',express.static(__dirname + '/uploads/users'));
 app.use('/uploads/posts',express.static(__dirname + '/uploads/posts'));
@@ -92,7 +92,9 @@ app.use(function(req, res, next){
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/blog', blogRouter);
-
+app.use('/portfolio/projects', projectsRouter);
+// app.use('/portfolio/design', designsRouter);
+//app.use('/portfolio/music', ); //Serve music link
 
 
 // catch 404 and forward to error handler

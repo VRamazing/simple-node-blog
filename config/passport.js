@@ -4,7 +4,6 @@ var LocalStrategy = require('passport-local').Strategy;
 const { validationResult } = require('express-validator');
 const constants = require('../utils/constants');
 
-
 var mongoose = require('mongoose');
 
 passport.serializeUser(function(user, done){
@@ -60,7 +59,6 @@ passport.use('local.signin', new LocalStrategy({
     passReqToCallback: true
 }, function(req, email, password, done){
     var errors = validationResult(req);
-    console.log('errors')
     User.findOne({'email': email}, function(err, user){
         if(err){
             return done(err);
