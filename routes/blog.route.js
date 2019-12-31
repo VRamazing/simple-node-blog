@@ -17,6 +17,8 @@ var recentPosts = []
 
 const csrfProtection = csurf();
 
+const postsPerPage = 2;
+
 const storage = multer.diskStorage({
   destination: function(req, file, cb){
       cb(null, './uploads/posts');
@@ -42,41 +44,75 @@ fileSize: 1024 * 1024 * 10
 
 router.use(csrfProtection);
 
-/* GET home page. */
-router.use('/', function(req,res,next){
-  res.locals.currentUrl = constants.BLOG;
-  next();
-})
-
 router.get('/', function(req, res, next){
-    res.redirect('/blog/posts')
+    res.locals.currentUrl = constants.BLOG;
+    res.redirect('/blog/posts/0');
 });
 
-router.get('/posts', function(req, res, next) {
+router.get('/:page', function(req, res, next) {
   // Calculate and send pagination - 10 posts per page. Total post/4
   // Move top 5 recent posts links to recentPosts key
+  var currentPage = parseInt(req.params.page);
+  var previousPage, nextPage;
 
-  Post.find({}, null, {sort: {_id: -1}}, function (err, posts) {
-    if (err) return
-    var pages = Math.floor(posts/10);
-    recentPosts = posts.slice(0, 5);
-    var noPosts = posts.length === 0
-    res.render('blog/home', {
-      posts: posts,
-      recentPosts: recentPosts,
-      pages: pages,
-      style: ['blog-post.css'],
-      noPost: noPosts
-    });
-  })
+  console.log("Current page is", currentPage)
+
+  if(isNaN(currentPage)){
+    res.status(404)
+    return res.redirect('/error/pagenotfound')
+  }
+  
+  Post.countDocuments({}, function (err, count){
+    if(err){
+      console.log(err)
+    }
+
+    var totalPages = Math.ceil(count/postsPerPage);
+    var postsToSkip = postsPerPage * currentPage;
+
+
+    // if(currentPage == 0){
+    //   previousPage=null;
+    // }
+    // else{
+    //   previousPage-=1;
+    // }
+
+    // if(currentPage == totalPages){totalPages
+    //   nextPage=null;
+    // }
+    // else{
+    //   nextPage+=1;
+    // }
+
+    Post.find()
+    .limit(postsPerPage)
+    .skip(postsToSkip)
+    .sort({
+        _id: -1
+    })
+    .exec(function(err, posts) {
+      if(err) console.log(err);
+      console.log("Total pages", totalPages)
+
+      res.render('blog/home', {
+        posts: posts,
+        pages: totalPages,
+        style: ['blog-post.css'],
+        previousPage: previousPage,
+        nextPage: nextPage,
+        noPost: count==0
+      });
+    })
+  });
 });
 
-router.get('/posts/new', authHelper.isLoggedIn, function(req, res, next) {
+router.get('/new', authHelper.isLoggedIn, function(req, res, next) {
   res.locals.currentUrl = 'NEW_POST';
   res.render('blog/create_post', {csrfToken: req.csrfToken()});
 });
 
-router.get('/posts/:postSlug/', function(req, res, next) {
+router.get('/:postSlug/', function(req, res, next) {
   var postTitle = utils.convertUrlIdToTitleString(req.params.postSlug);
   Post.findOne({title: postTitle}, function(err, post){
     if (err) return
@@ -94,7 +130,7 @@ router.get('/posts/search/:postSlug/', function(req, res, next) {
   })*/
 });
 
-router.post('/posts/new', 
+router.post('/new', 
   authHelper.isLoggedIn, 
   upload.single('thumbnail'),
   [

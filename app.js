@@ -44,11 +44,14 @@ var hbs = exhbs.create({
         }
       },
       substr: function(passedString, options){
-        var theString = passedString.substring(0,170) + "...";
-        return theString
+        if(passedString !== undefined){
+          return passedString.substring(0,170) + "...";
+        }
       },
       convertDateToLocal: function(date, options){
-        return date.toLocaleString();
+        if(date !== undefined){
+          return date.toLocaleString();
+        }
       }
   },
   defaultLayout: 'layout', extname: '.hbs'
@@ -91,11 +94,10 @@ app.use(function(req, res, next){
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/blog', blogRouter);
+app.use('/blog/posts', blogRouter);
 app.use('/portfolio/projects', projectsRouter);
 // app.use('/portfolio/design', designsRouter);
 //app.use('/portfolio/music', ); //Serve music link
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

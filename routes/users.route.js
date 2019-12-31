@@ -45,7 +45,6 @@ router.get('/signout', authHelper.isLoggedIn, function(req, res, next){
   res.redirect('/');
 })
 
-
 router.use('/', authHelper.isNotLoggedIn, function(req,res,next){
   next();
 })

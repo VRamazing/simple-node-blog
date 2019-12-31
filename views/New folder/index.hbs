@@ -1,0 +1,71 @@
+<!-- Header Banner -->
+<div>
+  <div class="section no-pad-bot scrollspy" id="Home">
+    <div class="container">
+      <br><br><br>
+      <h1 class="header center white-text ">Vignesh Ramesh</h1>
+      <div class="row center">
+        <h4 class="header col s12  light  cyan-text">Full Stack Developer &amp; Entrepreneur</h4>
+        <a href="#About" id = "link" class = "scroll-arrow"><i class="fa fa-chevron-circle-down fa-3x white-text" aria-hidden="true" ></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quote -->
+  <div class="container-fluid quote cyan z-depth-1">
+    <div class="row ">
+      <div class="col s12">
+        <br>
+        <p class="center white-text">I provide IT solutions to complex problems</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Me -->
+  <div class="container scrollspy" id ="About">
+    <div class="section about">
+      <div class="row">
+        <div class=" center col s12">
+
+          <br><br>
+          <img alt = "profile_pic" src="./images/me.png"  class= "profilePic" height="200" >
+          <br>
+          <br>
+          <br>
+          <p>I am a <span class="  pink-text">Full Stack Developer &amp; Entrepreneur</span> from India. I am passionate about technology and like to constantly explore new domains. My areas of interests include Web Development, Game Development, Data Science and Artificial Intelligence.</p>
+          <br />
+          <p >I am a member of <a class = "pink-text text-lighten-1" href = "http://www.gamkedo.com">Gamkedo Club</a> which is an International club of people all around the world with a common objective of creating games together. Everybody has a purpose in life and I believe my purpose is to provide IT solutions to complex problems that we as a society face every day. I love challenges and thus the quote I live by is &ldquo;<span style = 'font-style:italic'>Only the strong survive</span> &rdquo;. <a href="#Contact" id = "link" class="pink-text"> Connect with me</a> if you have something interesting on your mind. </p>
+          <br>
+          <br>
+        </div>
+        
+        <div class="carousel" style = "margin:20px 0 0 0!important;padding:0px">
+          <h5 class="center  blue-text" style = "font-style:italic;font-size:22px;">My technology stack includes...</h5>
+          {{#each techStack}}
+          <a class="carousel-item" ><img alt = {{imgAlt}} src = {{imgUrl}}></a>
+          {{/each}}
+        </div>
+        
+        <div class=" center col s12 hide-on-med-and-down">
+          <div class = "row">
+            <br>
+            <div class=" center col s12 m6 ">
+              <center>
+                <a class="twitter-timeline" href="https://twitter.com/techieVignesh?ref_src=twsrc%5Etfw" data-width="355" data-height="475">Tweets by techieVignesh</a>
+              </center>
+              </div>
+              <div class=" center col s12 m6 ">
+                <center>
+                  <div class="fb-page" data-height="500" data-href="https://www.facebook.com/techieVR/" data-tabs="timeline" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="https://www.facebook.com/techieVR/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/techieVR/">Vignesh Ramesh</a></blockquote></div>
+                </center>
+              </div>
+          </div>
+          <br />
+          <div class="row">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/phb1AxdnPdE" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="logo-container">
+	
+ 	<h5 class="center teal-text" style="font-style: italic">{{logos.length}} + professional logos and Counting</h5>
+
+ 	<br />
+	{{!--TODO: Hover tooltip for what the logo signifies
+	TODO: Hover blurs the image and makes it black and white --}}
+	<div class="rows logos grid">
+		{{#each logos}}
+			<div id="image-container">
+				<img src={{imgUrl}} alt={{imgAlt}} class="logo-image" >
+			</div>
+		{{/each}}
+	</div>
+</div>
+
